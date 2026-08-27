@@ -4,7 +4,7 @@
 # Requires: DB_PASSWORD (mariadb root), ADMIN_PASSWORD (site Administrator).
 set -euo pipefail
 
-: "${DB_PASSWORD:?set DB_PASSWORD}"
+DB_PASSWORD="${DB_PASSWORD:-${MYSQL_ROOT_PASSWORD:?set DB_PASSWORD or MYSQL_ROOT_PASSWORD}}"
 : "${ADMIN_PASSWORD:?set ADMIN_PASSWORD}"
 
 DOMAIN="demo.growwwtech.com"

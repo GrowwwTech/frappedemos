@@ -8,7 +8,7 @@
 #   reset-demos.sh take-golden  -> snapshot current state of all sites as golden
 set -euo pipefail
 
-: "${DB_PASSWORD:?set DB_PASSWORD}"
+DB_PASSWORD="${DB_PASSWORD:-${MYSQL_ROOT_PASSWORD:?set DB_PASSWORD or MYSQL_ROOT_PASSWORD}}"
 
 GOLDEN=/home/frappe/golden-backups
 cd /home/frappe/frappe-bench
