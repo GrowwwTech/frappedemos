@@ -25,6 +25,15 @@ RUN bench init --apps_path=/opt/frappe/apps.json \
   echo "{}" > sites/common_site_config.json && \
   find apps -mindepth 1 -path "*/.git" | xargs rm -fr
 
+# whitelabel installed separately: its version-15 pyproject wrongly pins
+# frappe/pypika/gunicorn (bench manages those), which breaks uv resolution.
+# Strip the deps, then install from the patched local copy.
+RUN git clone --depth 1 -b version-15 https://github.com/bhavesh95863/whitelabel /tmp/whitelabel && \
+  sed -i '/^dependencies = \[/,/^\]/c\dependencies = []' /tmp/whitelabel/pyproject.toml && \
+  cd /home/frappe/frappe-bench && \
+  bench get-app /tmp/whitelabel && \
+  rm -rf /tmp/whitelabel apps/whitelabel/.git
+
 FROM ${FRAPPE_IMAGE_PREFIX}/base:${FRAPPE_BRANCH} AS backend
 
 USER frappe
