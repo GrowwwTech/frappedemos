@@ -29,21 +29,16 @@ services:
     entrypoint:
       - bash
       - -c
+    # values hardcoded: Coolify's compose parser rejects $$VAR escapes
     command:
       - >
         ls -1 apps > sites/apps.txt;
-        bench set-config -g db_host $$DB_HOST;
-        bench set-config -gp db_port $$DB_PORT;
-        bench set-config -g redis_cache "redis://$$REDIS_CACHE";
-        bench set-config -g redis_queue "redis://$$REDIS_QUEUE";
-        bench set-config -g redis_socketio "redis://$$REDIS_QUEUE";
-        bench set-config -gp socketio_port $$SOCKETIO_PORT;
-    environment:
-      DB_HOST: db
-      DB_PORT: "3306"
-      REDIS_CACHE: redis-cache:6379
-      REDIS_QUEUE: redis-queue:6379
-      SOCKETIO_PORT: "9000"
+        bench set-config -g db_host db;
+        bench set-config -gp db_port 3306;
+        bench set-config -g redis_cache "redis://redis-cache:6379";
+        bench set-config -g redis_queue "redis://redis-queue:6379";
+        bench set-config -g redis_socketio "redis://redis-queue:6379";
+        bench set-config -gp socketio_port 9000;
     volumes:
       - sites:/home/frappe/frappe-bench/sites
       - logs:/home/frappe/frappe-bench/logs
@@ -81,8 +76,8 @@ services:
       - nginx-entrypoint.sh
     environment:
       BACKEND: backend:8000
-      # $$host = resolve site by incoming hostname (multi-tenant routing)
-      FRAPPE_SITE_NAME_HEADER: $$host
+      # FRAPPE_SITE_NAME_HEADER unset -> nginx-entrypoint defaults to $host
+      # (multi-tenant routing); can't write $$host here, Coolify's parser rejects it
       SOCKETIO: websocket:9000
       UPSTREAM_REAL_IP_ADDRESS: 127.0.0.1
       UPSTREAM_REAL_IP_HEADER: X-Forwarded-For
