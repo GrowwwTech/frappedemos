@@ -1,7 +1,7 @@
 # Growww Frappe Demos
 
 White-labeled Frappe demo farm for Growww Tech. One bench, one stack, six demo
-sites on `*.demos.growwwtech.com`, deployed via Coolify on the Hostinger VPS.
+sites on `*.demo.growwwtech.com`, deployed via Coolify on the Hostinger VPS.
 
 Based on [frappe_docker](https://github.com/frappe/frappe_docker) (layered
 custom image + pwd.yml), pinned to **version-15**.
@@ -15,16 +15,16 @@ insights, whitelabel (branding). See `apps.json`.
 
 | Site | Apps |
 |---|---|
-| erp.demos.growwwtech.com | erpnext + hrms |
-| health.demos.growwwtech.com | erpnext + healthcare |
-| crm.demos.growwwtech.com | crm |
-| helpdesk.demos.growwwtech.com | helpdesk |
-| lms.demos.growwwtech.com | lms |
-| insights.demos.growwwtech.com | insights |
+| erp.demo.growwwtech.com | erpnext + hrms |
+| health.demo.growwwtech.com | erpnext + healthcare |
+| crm.demo.growwwtech.com | crm |
+| helpdesk.demo.growwwtech.com | helpdesk |
+| lms.demo.growwwtech.com | lms |
+| insights.demo.growwwtech.com | insights |
 
 ## Deploy (Coolify)
 
-1. DNS: wildcard A record `*.demos.growwwtech.com` -> VPS IP.
+1. DNS: wildcard A record `*.demo.growwwtech.com` -> VPS IP.
 2. Coolify -> project "Frappe Apps" -> new resource -> Docker Compose,
    point at this repo, compose file `compose.yml`.
 3. Set env vars on the resource: `DB_PASSWORD` (generate strong).

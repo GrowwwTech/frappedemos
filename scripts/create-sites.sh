@@ -7,7 +7,7 @@ set -euo pipefail
 : "${DB_PASSWORD:?set DB_PASSWORD}"
 : "${ADMIN_PASSWORD:?set ADMIN_PASSWORD}"
 
-DOMAIN="demos.growwwtech.com"
+DOMAIN="demo.growwwtech.com"
 
 # site-prefix:apps (comma-separated, in install order)
 SITES=(
