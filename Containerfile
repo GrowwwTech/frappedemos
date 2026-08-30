@@ -61,8 +61,10 @@ COPY resources/main-entrypoint.sh /usr/local/bin/entrypoint.sh
 COPY resources/start.sh /usr/local/bin/start.sh
 COPY scripts/create-sites.sh /usr/local/bin/create-sites.sh
 COPY scripts/reset-demos.sh /usr/local/bin/reset-demos.sh
+COPY scripts/setup-demos.sh /usr/local/bin/setup-demos.sh
 RUN chmod 755 /usr/local/bin/entrypoint.sh /usr/local/bin/start.sh \
-  /usr/local/bin/create-sites.sh /usr/local/bin/reset-demos.sh
+  /usr/local/bin/create-sites.sh /usr/local/bin/reset-demos.sh \
+  /usr/local/bin/setup-demos.sh
 
 USER frappe
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
